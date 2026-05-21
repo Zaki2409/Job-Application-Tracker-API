@@ -15,17 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
 from django.urls import path, include
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('your_api_app.urls')),  # or your API routes
+    path('api/schema/', ...),
+    path('api/docs/', ...),
     
-    # Include your applications app URLs under the 'api/' prefix
-    path('api/', include('applications.urls')),
-    
-    # Swagger/OpenAPI endpoints
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),           # JSON schema
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),  # Interactive UI
+    # Redirect root to API docs or admin
+    path('', lambda request: redirect('/api/docs/')),  # or '/admin/'
 ]
