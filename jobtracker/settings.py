@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework', #Enables Django REST Framework in your project
+    'drf_spectacular',#Enables Swagger UI and OpenAPI schema generation.
+    'applications',#my custom app. 
+
 ]
 
 MIDDLEWARE = [
@@ -116,6 +120,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+#Django REST Framework (DRF) needs to know what schema generator to use for API documentation.
+#By default, DRF uses its own basic schema. But you installed drf_spectacular (better Swagger UI).
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+#This customizes the appearance of your Swagger UI — title, description, version, etc. It's optional but nice.
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Job Tracker API',
+    'DESCRIPTION': 'Track your job applications with AI-powered insights',
+    'VERSION': '1.0.0',
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
